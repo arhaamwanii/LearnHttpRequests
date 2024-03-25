@@ -37,7 +37,7 @@ function App() {
     try{
     await updateUserPlaces([selectedPlace , ...userPlaces]);
     }catch(error){
-      
+      setUserPlaces(userPlaces)
     }
 
   }
@@ -76,9 +76,17 @@ function App() {
         />
 
         <AvailablePlaces onSelectPlace={handleSelectPlace} />
+
       </main>
     </>
   );
 }
 
 export default App;
+
+// OPTIMSTIC UPDATING
+// you update the ui , in the bg you send the request to the backend to update the ui and if that fails -- you roll back the changes that you made on the frontend
+// backend we need to connecting to the backend
+// fetch async await resopon
+
+
