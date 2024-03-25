@@ -85,8 +85,14 @@ function App() {
 export default App;
 
 // OPTIMSTIC UPDATING
+// FOOD ORDERIGN APP IN THIS SECTION WE ARE GOING TO BUILD AN FOOD ORDER APP EDIT THEM IN THE CART SUBMIT THE ORDER TO THE BACK END WE WILL FRONT END THAT WE ARE GOING TO HAVE TO  TO SIMPLY TOGETHER AND USE THEM ALL TOGETHER WE DEFFINETLY ON YOUR 
 // you update the ui , in the bg you send the request to the backend to update the ui and if that fails -- you roll back the changes that you made on the frontend
 // backend we need to connecting to the backend
 // fetch async await resopon
+
+// AUTHENTICATION
+// how to authenticate users 
+
+// hugging face api so we get the thing we are going to have to make the thing we are there we were in therer to 
 
 

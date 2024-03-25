@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Places from './Places.jsx';
 import { sortPlacesByDistance } from '../loc.js';
 import { fetchAvailablePlaces } from '../http.js';
+import Error from './Error.jsx';
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const [isFetching , setIsFetching] = useState(false)
@@ -46,7 +47,7 @@ export default function AvailablePlaces({ onSelectPlace }) {
   // if response.ok -- is false i.e the backend didn't send back the correct data -- with a status code of 200-300
 
   // try catch is used to prevent the whole script from crashing when an error occurs
-
+  // that is what i wanted to do as well
   return (
     <Places
       title="Available Places"
