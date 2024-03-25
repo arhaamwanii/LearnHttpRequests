@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import Places from './Places.jsx';
+import { sortPlacesByDistance } from '../loc.js';
+import { fetchAvailablePlaces } from '../http.js';
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const [isFetching , setIsFetching] = useState(false)
@@ -7,33 +9,43 @@ export default function AvailablePlaces({ onSelectPlace }) {
   const [error , setError] = useState()
 
 
+  //super common to have 2 states together -- data -- loading -- error
+
   useEffect(() => { 
     
     async function fetchPlaces(){
     setIsFetching(true)
 
     try{
-    const response = await fetch('http://localhost:3000/places');
-    const resData  = await response.json();
+      
+      const places = await fetchAvailablePlaces();
 
-    if (!response.ok){ 
-       new Error('failed to fetch places');
-    }
-    setAvailablePlaces(resData.places)  
+      navigator.geolocation.getCurrentPosition((position) => {
+       const sortedPlaces = sortPlacesByDistance(resData.places , position.coords.latitude , position.coords.longitude)
+        setAvailablePlaces(resData.places)
+        setIsFetching(false)
+      } )
+
     }catch(error){
-      setError({error.message || 'Cant get an resoponse'})
-    }
 
+      setError({message : error.message || 'Could not fetch places,, please try again later'})
+    }
     setIsFetching(false)
     }
     fetchPlaces();
   } , [])
 
   if(error){
-    return(
-      <Error title="An error has occurred" message={error.message}/>
-    )
+    return   <Error title="An error has occurred" message={error.message}/>
   }
+
+  //response.ok is a ibuilt property built into the object formed by fetch 
+  // ERRORS --- 2 main ways of failing
+    // network crash
+    // backend sends back an error resoponse
+  // if response.ok -- is false i.e the backend didn't send back the correct data -- with a status code of 200-300
+
+  // try catch is used to prevent the whole script from crashing when an error occurs
 
   return (
     <Places
@@ -56,4 +68,12 @@ export default function AvailablePlaces({ onSelectPlace }) {
 // prepairing for failing to send the request 
 // backend sends back shit
 
+
+
+// HANDLEING HTTP REQUESTS -- AND HADLING ERRORS
+
+//send the request so that our selection is stored there then also 
+  //store the thing in the backend 
+  // fetch the thing from the backend and show it to the users
+  // only expects the  requests that it wants that is the way 
 

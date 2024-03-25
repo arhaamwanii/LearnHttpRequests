@@ -26,3 +26,4 @@ export function sortPlacesByDistance(places, lat, lon) {
   });
   return sortedPlaces;
 }
+// functionality -- calculate distance between two points 
